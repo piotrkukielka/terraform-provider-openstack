@@ -47,6 +47,24 @@ func resourceDatabaseInstanceV1() *schema.Resource {
 				DefaultFunc: schema.EnvDefaultFunc("OS_FLAVOR_ID", nil),
 			},
 
+			"availability_zone": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				ForceNew:    true,
+			},
+
+			"volume_type": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				ForceNew:    true,
+			},
+
+			"replica_of": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				ForceNew:    true,
+			},
+
 			"size": {
 				Type:     schema.TypeInt,
 				Required: true,
@@ -192,6 +210,9 @@ func resourceDatabaseInstanceV1Create(ctx context.Context, d *schema.ResourceDat
 		FlavorRef: d.Get("flavor_id").(string),
 		Name:      d.Get("name").(string),
 		Size:      d.Get("size").(int),
+    AvailabilityZone: d.Get("availability_zone").(string),
+    VolumeType: d.Get("volume_type").(string),
+    ReplicaOf: d.Get("replica_of").(string),
 	}
 
 	// datastore
